@@ -1,12 +1,25 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Segoe UI,sans-serif;}
+html{
+  -webkit-text-size-adjust:100%;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+}
+img,video,canvas{
+  max-width:100%;
+  height:auto;
+}
 body{
 background:linear-gradient(135deg,#020617,#0b1f4d,#1e3a8a,#312e81);
 background-size:300% 300%;
 animation:bgShift 15s ease infinite;
 overflow-x:hidden;
-overflow-y:auto;
-min-height:100vh;
+overflow-y:hidden;
+width:100%;
+height:100%;
+margin:0;
+padding:0;
 perspective:1000px;
 }
 @keyframes bgShift{
@@ -15,17 +28,14 @@ perspective:1000px;
 100%{background-position:0% 50%;}
 }
 .hero{
-min-height:auto;
-padding:40px 20px 20px;
+min-height:100dvh;
+height:100dvh;
+padding:16px;
 display:flex;
 justify-content:center;
 align-items:center;
 position:relative;
-}
-body::after{
-content:"";
-display:block;
-height:80px;
+overflow:hidden;
 }
 .hero:before{
 content:"";
@@ -61,8 +71,8 @@ to{transform:rotate(360deg) scale(1.1);}
 position:relative;
 z-index:2;
 width:min(760px,92vw);
-padding:50px;
-margin:30px auto 20px;
+padding:34px;
+margin:0 auto;
 border-radius:32px;
 background:rgba(255,255,255,.12);
 backdrop-filter:blur(18px);
@@ -74,6 +84,13 @@ animation:float 5s ease-in-out infinite;
 overflow:hidden;
 will-change:transform;
 transform:translateZ(0);
+max-height:calc(100dvh - 32px);
+overflow:auto;
+scrollbar-width:none;
+-ms-overflow-style:none;
+}
+.card::-webkit-scrollbar{
+display:none;
 }
 .shine{
 position:absolute;
@@ -119,17 +136,66 @@ color:#cbd5e1;
 }
 
 @media (max-width:768px){
-.hero{padding:20px;align-items:center;}
-.card{width:100%;padding:28px 20px;border-radius:20px;}
-.cap3d{font-size:70px;}
-h1{font-size:2rem;line-height:1.2;}
-p{font-size:17px;margin-bottom:12px;}
-.tagline{font-size:14px;line-height:1.5;}
-.countdown{gap:10px;}
-.time-box{min-width:68px;padding:10px;}
-.time-box .value{font-size:24px;}
-.register-btn{width:100%;padding:16px;font-size:18px;margin-top:15px;}
-.mouseGlow{display:none;}
+.hero{
+padding:10px;
+height:100dvh;
+min-height:100dvh;
+align-items:center;
+}
+.card{
+width:100%;
+max-width:100%;
+max-height:calc(100dvh - 20px);
+margin:0;
+padding:18px 16px;
+border-radius:18px;
+overflow:auto;
+}
+.cap3d{font-size:58px;}
+h1{
+  font-size:30px;
+  line-height:1.2;
+}
+p{
+  font-size:15px;
+  margin-bottom:14px;
+}
+.tagline{
+  font-size:13px;
+  line-height:1.5;
+}
+.event-info{
+  font-size:12px;
+  line-height:1.6;
+}
+.premium-badge{
+  font-size:11px;
+  padding:8px 16px;
+}
+.countdown{
+  gap:8px;
+}
+.time-box{
+  min-width:64px;
+  padding:10px 8px;
+}
+.time-box .value{
+  font-size:20px;
+}
+.time-box .label{
+  font-size:11px;
+}
+.register-btn{
+  display:block;
+  width:100%;
+  padding:15px;
+  font-size:18px;
+}
+.mouseGlow,
+.glow,
+.star{
+  display:none;
+}
 }
 .card::before{
 content:"";
@@ -256,7 +322,7 @@ transition:.5s;
 
 <div class="cap3d">🎓</div>
 
-<h1>The Graduation Experience 2026</h1>
+<h1>Graduation Ceremony 2026</h1>
 
 <p>A celebration of achievement, perseverance, and the beginning of your next chapter.</p>
 <div class="tagline">Every graduate has a story worth celebrating. Join your classmates, faculty, and family for a memorable ceremony that honors your hard work and marks the start of a new journey.</div>
@@ -282,7 +348,7 @@ Please complete your registration before the closing date to ensure your partici
 </div>
 
 <script>
-const target=new Date("August 20,2026 09:00:00").getTime();
+const target=new Date("August 20,2026 04:00:00").getTime();
 
 function updateCountdown(){
 const now=new Date().getTime();
@@ -312,7 +378,7 @@ setInterval(updateCountdown,1000);
 <style>
 /* Floating glowing particles */
 .particle{
-    position:absolute;
+    position:fixed;
     width:6px;
     height:6px;
     background:#ffffff;
@@ -340,7 +406,7 @@ setInterval(updateCountdown,1000);
 /* Shooting stars */
 
 .star{
-    position:absolute;
+    position:fixed;
     width:3px;
     height:3px;
     background:white;
@@ -482,7 +548,7 @@ transform:translate3d(calc(var(--drift)*0.75),35vh,0) rotate(1080deg) scale(1);
 opacity:1;
 }
 100%{
-transform:translate3d(var(--drift),110vh,0) rotate(1620deg) scale(.85);
+transform:translate3d(var(--drift),92vh,0) rotate(1620deg) scale(.85);
 opacity:0;
 }
 }
@@ -748,7 +814,7 @@ function fireCannon(side){
     const c=document.createElement('div');
     c.className='confetti';
     c.style.left=origin+'vw';
-    c.style.top='85vh';
+    c.style.top='78vh';
     c.style.background=colors[Math.floor(Math.random()*colors.length)];
     c.style.borderRadius=Math.random()>0.5?'50%':'2px';
     c.style.transform=`rotate(${Math.random()*360}deg)`;
@@ -772,27 +838,27 @@ function fireCannon(side){
 fireCannon('left');
 fireCannon('right');
 
-let burst=0;
-const celebration=setInterval(()=>{
- if(burst>8){clearInterval(celebration);return;}
- burst++;
- for(let i=0;i<60;i++){
-   const c=document.createElement('div');
-   c.className='confetti';
-   c.style.left=(Math.random()<0.5?5:95)+'vw';
-   c.style.top='85vh';
-   c.style.width=(8+Math.random()*8)+'px';
-   c.style.height=c.style.width;
-   c.style.background=colors[Math.floor(Math.random()*colors.length)];
-   c.style.borderRadius=Math.random()>0.5?'50%':'2px';
-   c.style.transform=`rotate(${Math.random()*360}deg)`;
-   c.style.setProperty('--drift',(Math.random()*300-150)+'px');
-   c.style.setProperty('--lift',(-300-Math.random()*250)+'px');
-   c.style.animation=`cannonFall ${4+Math.random()*2}s cubic-bezier(.22,.61,.36,1) forwards`;
-   document.body.appendChild(c);
-   setTimeout(()=>c.remove(),5000);
- }
-},350);
+ let burst=0;
+ const celebration=setInterval(()=>{
+  if(burst>8){clearInterval(celebration);return;}
+  burst++;
+  for(let i=0;i<60;i++){
+    const c=document.createElement('div');
+    c.className='confetti';
+    c.style.left=(Math.random()<0.5?5:95)+'vw';
+    c.style.top='78vh';
+    c.style.width=(8+Math.random()*8)+'px';
+    c.style.height=c.style.width;
+    c.style.background=colors[Math.floor(Math.random()*colors.length)];
+    c.style.borderRadius=Math.random()>0.5?'50%':'2px';
+    c.style.transform=`rotate(${Math.random()*360}deg)`;
+    c.style.setProperty('--drift',(Math.random()*300-150)+'px');
+    c.style.setProperty('--lift',(-300-Math.random()*250)+'px');
+    c.style.animation=`cannonFall ${4+Math.random()*2}s cubic-bezier(.22,.61,.36,1) forwards`;
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),5000);
+  }
+ },350);
 
 /* Sparkles */
 
@@ -825,4 +891,16 @@ setTimeout(function(){
 
 });
 
+</script>
+</script>
+<script>
+window.addEventListener('load',()=>{
+  document.body.style.margin='0';
+  document.body.style.padding='0';
+  document.documentElement.style.margin='0';
+  document.documentElement.style.padding='0';
+  document.body.style.overflowX='hidden';
+  document.body.style.overflowY='hidden';
+  window.scrollTo(0,0);
+});
 </script>
