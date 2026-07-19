@@ -165,38 +165,118 @@ font-size:15px;
 color:#cbd5e1;
 }
 
-@media (max-width:768px){
+@media (max-width:480px){
 .hero{
-padding:10px;
-height:100dvh;
-min-height:100dvh;
-align-items:center;
+  min-height:100svh;
+  height:auto;
+  padding:16px 10px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
 }
+
 .card{
-width:100%;
-max-width:100%;
-max-height:calc(100dvh - 20px);
-margin:0;
-padding:18px 16px;
-border-radius:18px;
-overflow:auto;
+  width:95vw;
+  max-width:390px;
+  padding:24px 18px;
+  border-radius:22px;
+  margin:0 auto;
 }
-.cap3d{font-size:58px;}
+
+.cap3d{
+  font-size:58px;
+}
+
 h1{
-  font-size:30px;
+  font-size:32px;
   line-height:1.2;
 }
+
 p{
-  font-size:15px;
-  margin-bottom:14px;
+  font-size:16px;
+  line-height:1.45;
+  margin-bottom:16px;
 }
+
 .tagline{
-  font-size:13px;
-  line-height:1.5;
+  font-size:14px;
+  line-height:1.55;
 }
+
 .event-info{
   font-size:12px;
   line-height:1.6;
+}
+
+.premium-badge{
+  font-size:10px;
+  padding:7px 14px;
+}
+
+.countdown{
+  gap:6px;
+}
+
+.time-box{
+  min-width:66px;
+  padding:12px 8px;
+}
+
+.time-box .value{
+  font-size:24px;
+}
+
+.time-box .label{
+  font-size:10px;
+}
+
+.register-btn{
+  width:100%;
+  padding:16px;
+  font-size:19px;
+}
+
+.mouseGlow,
+.glow,
+.star{
+  display:none;
+}
+}
+
+@media (min-width:481px) and (max-width:768px){
+.hero{
+  min-height:100svh;
+  height:auto;
+  padding:24px 14px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+.card{
+  width:96vw;
+  max-width:460px;
+  padding:36px 24px;
+  border-radius:28px;
+  margin:0 auto;
+  transform:none;
+}
+.cap3d{font-size:72px;}
+h1{
+  font-size:42px;
+  line-height:1.15;
+}
+p{
+  font-size:19px;
+  line-height:1.5;
+  margin-bottom:20px;
+}
+.tagline{
+  font-size:16px;
+  line-height:1.65;
+}
+.event-info{
+  font-size:14px;
+  line-height:1.7;
 }
 .premium-badge{
   font-size:11px;
@@ -206,20 +286,19 @@ p{
   gap:8px;
 }
 .time-box{
-  min-width:64px;
-  padding:10px 8px;
+  min-width:82px;
+  padding:16px 12px;
 }
 .time-box .value{
-  font-size:20px;
+  font-size:30px;
 }
 .time-box .label{
   font-size:11px;
 }
 .register-btn{
-  display:block;
   width:100%;
-  padding:15px;
-  font-size:18px;
+  padding:20px;
+  font-size:22px;
 }
 .mouseGlow,
 .glow,
