@@ -11,12 +11,12 @@
 html {
   -webkit-text-size-adjust: 100%;
   width: 100%;
-  height: 100%;
-  overflow: hidden !important;
+  min-height: 100%;
+  overflow-x: hidden !important;
+  overflow-y: auto;
 }
 body,
-html,
-.hero {
+html {
   width: 100%;
   max-width: 100vw;
   overflow-x: hidden !important;
@@ -28,12 +28,73 @@ body {
   max-width: 100vw;
   position: relative;
   width: 100%;
-  height: 100%;
-  overflow: hidden !important;
+  min-height: auto;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden !important;
+  overflow-y: auto;
   overscroll-behavior: none;
   margin: 0;
   padding: 0;
   perspective: 1000px;
+}
+
+/* Site Header & Footer */
+.site-header{
+  position:sticky;
+  top:0;
+  z-index:1000;
+  padding:22px 32px;
+  background:rgba(2,6,23,.55);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid rgba(255,255,255,.12);
+  min-height:80px;
+}
+.header-content{
+  max-width:1200px;
+  margin:auto;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.logo{
+  color:#fff;
+  font-size:20px;
+  font-weight:700;
+}
+.header-nav{
+  display:flex;
+  align-items:center;
+  gap:24px;
+}
+.header-nav a{
+  color:#fff;
+  text-decoration:none;
+  font-weight:600;
+  font-size:15px;
+  opacity:.9;
+  transition:.3s;
+}
+.header-nav a:hover{
+  color:#38bdf8;
+  opacity:1;
+}
+.site-footer{
+  width:100%;
+  margin-top:20px;
+  padding:28px 20px;
+  text-align:center;
+  color:#cbd5e1;
+  border-top:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.05);
+  backdrop-filter:blur(12px);
+  position:relative;
+  left:0;
+  right:0;
+}
+.site-footer p{
+  margin:6px 0;
+  font-size:14px;
 }
 body * {
   max-width: 100%;
@@ -51,14 +112,20 @@ img, video, canvas {
 
 /* Hero Section */
 .hero {
-  min-height: 100dvh;
-  height: 100dvh;
-  padding: 16px;
+  min-height: auto;
+  padding: 24px 16px 8px;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
+}
+
+@media (min-height: 760px){
+  .hero{
+    min-height:auto;
+    align-items:flex-start;
+  }
 }
 .hero:before {
   content: "";
@@ -96,8 +163,9 @@ img, video, canvas {
   position: relative;
   z-index: 2;
   width: min(760px, 92vw);
-  padding: 28px 34px;
+  padding: 28px 34px 24px;
   margin: 0 auto;
+  min-height: auto;
   border-radius: 32px;
   background: rgba(255,255,255,.12);
   backdrop-filter: blur(18px);
@@ -106,15 +174,25 @@ img, video, canvas {
   text-align: center;
   color: #fff;
   animation: float 5s ease-in-out infinite;
+  display:flex;
+  flex-direction:column;
+  align-items:stretch;
+  gap:0;
   overflow: visible;
   will-change: transform;
   transform: translateZ(0);
-  max-height: none;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
 }
-.card::-webkit-scrollbar {
-  display: none;
+@media (max-width: 768px){
+  .hero{
+    height:auto;
+    min-height:auto;
+    align-items:flex-start;
+  }
+  .card{
+    overflow:visible;
+    height:auto;
+    max-height:none;
+  }
 }
 .card::before {
   content: "";
@@ -161,6 +239,98 @@ img, video, canvas {
   letter-spacing: .08em;
   color: #fff;
   box-shadow: 0 0 20px rgba(255,255,255,.15);
+}
+
+/* Registration Progress */
+  .progress-section{
+    margin:22px 0 10px;
+    padding:24px;
+    border-radius:24px;
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.15);
+    backdrop-filter:blur(18px);
+    box-shadow:0 15px 40px rgba(0,0,0,.25), inset 0 1px rgba(255,255,255,.08);
+    text-align:center;
+  }
+.progress-title{
+  color:#e2e8f0;
+  font-size:15px;
+  margin-bottom:10px;
+  font-weight:600;
+}
+.progress-track{
+  position:relative;
+  display:flex;
+  align-items:center;
+  gap:16px;
+  margin-top:14px;
+  padding-bottom: 26px;
+}
+.progress-date{
+  width:56px;
+  flex-shrink:0;
+  color:#cbd5e1;
+  font-size:13px;
+  font-weight:600;
+}
+.progress-date:first-child{
+  text-align:right;
+}
+
+.progress-date:last-child{
+  text-align:left;
+}
+  .progress-line{
+    position:relative;
+    flex:1;
+    height:8px;
+    border-radius:999px;
+    background:rgba(255,255,255,.15);
+    overflow:visible;
+    box-shadow: inset 0 0 10px rgba(255,255,255,.08);
+  }
+  .progress-fill{
+    position:absolute;
+    left:0;
+    top:0;
+    height:100%;
+    width:0%;
+    border-radius:999px;
+    background:linear-gradient(90deg,#38bdf8,#22c55e,#facc15,#fb923c);
+    box-shadow:0 0 18px rgba(56,189,248,.7);
+    transition:width .8s ease;
+  }
+  .progress-dot{
+    position:absolute;
+    top:50%;
+    left:0%;
+    width:20px;
+    height:20px;
+    border-radius:50%;
+    border:4px solid #fff;
+    background:#facc15;
+    box-shadow:0 0 30px #facc15;
+    transform:translate(-50%,-50%);
+    animation:pulseDot 2s infinite;
+  }
+  @keyframes pulseDot{
+    0%,100%{transform:translate(-50%,-50%) scale(1);}
+    50%{transform:translate(-50%,-50%) scale(1.22);box-shadow:0 0 45px #facc15;}
+  }
+.today-label{
+  position:absolute;
+  top:18px;
+  left:0;
+  transform:translateX(-50%);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  color:#facc15;
+  font-size:12px;
+  font-weight:700;
+  line-height:1.1;
+  white-space:nowrap;
+  transition:left .5s ease;
 }
 
 /* Event Info Bar */
@@ -405,38 +575,6 @@ p {
   100% { transform: translateY(-120px) scale(8); opacity: 0; }
 }
 
-/* Confetti */
-.confetti {
-  position: fixed;
-  width: 12px;
-  height: 12px;
-  pointer-events: none;
-  z-index: 9999;
-  border-radius: 3px;
-  box-shadow: 0 0 10px rgba(255,255,255,.35);
-  will-change: transform, opacity;
-  backface-visibility: hidden;
-  transform: translate3d(0,0,0);
-  animation: cannonFall 6s cubic-bezier(.22,.61,.36,1) forwards;
-}
-@keyframes cannonFall {
-  0% {
-    transform: translate3d(0,0,0) rotate(0deg) scale(.6);
-    opacity: 0;
-  }
-  10% { opacity: 1; }
-  35% {
-    transform: translate3d(calc(var(--drift)*0.35),var(--lift),0) rotate(540deg) scale(1.15);
-  }
-  65% {
-    transform: translate3d(calc(var(--drift)*0.75),35vh,0) rotate(1080deg) scale(1);
-    opacity: 1;
-  }
-  100% {
-    transform: translate3d(var(--drift),92vh,0) rotate(1620deg) scale(.85);
-    opacity: 0;
-  }
-}
 
 /* Sparkles */
 .spark {
@@ -460,13 +598,19 @@ p {
 
 /* Responsive Styles */
 @media (max-width: 480px) {
+  .header-nav{
+    gap:12px;
+    font-size:13px;
+    flex-wrap:wrap;
+    justify-content:flex-end;
+  }
   .hero {
-    min-height: 100svh;
+    min-height: auto;
     height: auto;
     padding: 16px 10px;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
   }
   .card {
     width: 95vw;
@@ -490,7 +634,7 @@ p {
 }
 @media (min-width: 481px) and (max-width: 768px) {
   .hero {
-    min-height: 100svh;
+    min-height: auto;
     height: auto;
     padding: 24px 14px;
     display: flex;
@@ -520,6 +664,18 @@ p {
 }
 </style>
 
+<header class="site-header">
+  <div class="header-content">
+    <div class="logo">🎓 Graduation Ceremony 2026</div>
+    <nav class="header-nav">
+      <a href="#">Home</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
 <div class="hero">
 
 <div class="glow"></div>
@@ -535,10 +691,10 @@ p {
 <p>A celebration of achievement, perseverance, and the beginning of your next chapter.</p>
 <div class="tagline">Every graduate has a story worth celebrating. Join your classmates, faculty, and family for a memorable ceremony that honors your hard work and marks the start of a new journey.</div>
 
-<div class="event-info">📅 20 August 2026 &nbsp; • &nbsp; 🕓 4:00 PM &nbsp; • &nbsp; 🎓 Graduation Ceremony</div>
-<div class="premium-badge">✨ Official University Graduation Portal</div>
+<div class="event-info">📅 20 August 2026 &nbsp; • &nbsp; 🕓 3:00 PM – 8:00 PM &nbsp; • &nbsp; 🎓 Graduation Ceremony</div>
+<div class="premium-badge">✨ Official College Graduation Portal</div>
 
-<div id="status">✨ Registration Opens In</div>
+<div id="status">🎓 Event Starts In</div>
 <div class="countdown" id="timer">
 Loading Countdown...
 </div>
@@ -547,38 +703,160 @@ Loading Countdown...
 Please complete your registration before the closing date to ensure your participation in this memorable occasion.
 </div>
 
-<a id="registerBtn" class="btn register-btn" href="#" target="_self">
-    Begin Registration
-</a>
-
+<div class="progress-section">
+  <div class="progress-title">📅 Registration Period</div>
+  <div class="progress-track">
+    <span class="progress-date">21 Jul</span>
+    <div class="progress-line">
+      <div id="progressFill" class="progress-fill"></div>
+      <div id="progressDot" class="progress-dot"></div>
+    </div>
+    <span class="progress-date">10 Aug</span>
+    <div id="todayLabel" class="today-label">
+    </div>
+  </div>
+  <div class="progress-status">
+    <span class="status-badge">🟢 Registration Open</span>
+    <span class="days-left" id="daysLeft">⏳ Loading...</span>
+  </div>
 </div>
 
+<div class="info-section">
+  <div class="info-card">
+    <h3>📍 Event Venue</h3>
+    <p><strong>RVS Senthil Andavar Wedding Hall</strong><br>
+    Nagapattinam - Coimbatore - Gundlupet Hwy,<br>
+    Sulur, Kannampalayam,<br>
+    Tamil Nadu 641402</p>
+    <a class="info-btn" href="https://www.google.com/maps/search/?api=1&query=RVS+Senthil+Andavar+Wedding+Hall,+Sulur,+Kannampalayam,+Tamil+Nadu+641402" target="_blank">📍 View on Google Maps</a>
+  </div>
+
+  <div class="info-card">
+    <h3>📅 Add to Calendar</h3>
+    <p>Save the Graduation Ceremony to your preferred calendar.</p>
+    <a class="info-btn" href="#" id="calendarBtn">📅 Add to Calendar</a>
+  </div>
+</div>
+<style>
+.progress-status{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  margin-top:16px;
+  flex-wrap:wrap;
+}
+.status-badge,.days-left{
+  padding:8px 14px;
+  border-radius:999px;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.12);
+  color:#fff;
+  font-size:13px;
+  font-weight:600;
+}
+</style>
+
+<a id="registerBtn" class="register-btn" href="#">
+  Begin Registration
+</a>
+
+<div class="share-card compact-share">
+  <span class="share-title">Share Event</span>
+  <div class="share-buttons">
+    <a id="shareWhatsApp" class="share-btn whatsapp" href="#" aria-label="Share on WhatsApp">
+      <img src="WhatsApp.SVG" alt="WhatsApp">
+    </a>
+
+    <a id="shareInstagram" class="share-btn instagram" href="#" aria-label="Instagram">
+      <img src="Instagram.SVG" alt="Instagram">
+    </a>
+
+    <a id="shareFacebook" class="share-btn facebook" href="#" aria-label="Facebook">
+      <img src="Facebook.SVG" alt="Facebook">
+    </a>
+
+    <a id="shareX" class="share-btn x" href="#" aria-label="X">
+      <img src="X.SVG" alt="X">
+    </a>
+
+    <button id="copyLinkBtn" class="share-btn copy" type="button" aria-label="Copy Link">🔗</button>
+    </button>
+  </div>
+<!-- End share-card -->
+</div>
+
+<!-- End card -->
+</div>
+
+<!-- End hero -->
 </div>
 
 <script>
-const target = new Date("August 20, 2026 16:00:00").getTime();
+const target = new Date("August 20, 2026 15:00:00").getTime();
 
 function updateCountdown(){
-const now=new Date().getTime();
-const diff=target-now;
+  const now=new Date().getTime();
+  const diff=target-now;
 
-if(diff<0){
-document.getElementById("status").innerHTML="🎉 Registration is Now Open";
-document.getElementById("timer").innerHTML="We look forward to celebrating this special day with you.";
-btn.classList.remove("disabled");
-return;
-}
+  const start = new Date("July 21, 2026 00:00:00").getTime();
+  const registrationEnd = new Date("August 10, 2026 23:59:59").getTime();
+  const statusBadge = document.querySelector('.status-badge');
+  const registerBtn = document.getElementById('registerBtn');
 
-const d=Math.floor(diff/(1000*60*60*24));
-const h=Math.floor((diff%(1000*60*60*24))/(1000*60*60));
-const m=Math.floor((diff%(1000*60*60))/(1000*60));
-const s=Math.floor((diff%(1000*60))/1000);
+  // Update registration days left label
+  const daysLeft=document.getElementById('daysLeft');
+  if(daysLeft){
+    const regDiff = Math.max(0, registrationEnd - now);
+    const regDays = Math.floor(regDiff / (1000 * 60 * 60 * 24));
+    daysLeft.textContent=`⏳ ${regDays} Day${regDays===1?'':'s'} Left`;
+  }
 
-document.getElementById("timer").innerHTML=`
-<div class="time-box"><div class="value">${d}</div><div class="label">Days</div></div>
-<div class="time-box"><div class="value">${h}</div><div class="label">Hours</div></div>
-<div class="time-box"><div class="value">${m}</div><div class="label">Minutes</div></div>
-<div class="time-box"><div class="value">${s}</div><div class="label">Seconds</div></div>`;
+  // Registration closing logic
+  if (now > registrationEnd) {
+    if (statusBadge) statusBadge.textContent = '🔴 Registration Closed';
+    if (daysLeft) daysLeft.textContent = '⛔ Registration Ended';
+    if (registerBtn) {
+      registerBtn.textContent = 'Registration Closed';
+      registerBtn.classList.add('disabled');
+      registerBtn.style.pointerEvents = 'none';
+      registerBtn.style.opacity = '0.6';
+      registerBtn.style.cursor = 'not-allowed';
+    }
+  } else {
+    if (statusBadge) statusBadge.textContent = '🟢 Registration Open';
+  }
+
+  const progress = Math.max(0, Math.min(100, ((now - start) / (registrationEnd - start)) * 100));
+  const fill = document.getElementById("progressFill");
+  const dot = document.getElementById("progressDot");
+  if(fill && dot){
+    fill.style.width = progress + "%";
+    dot.style.left = progress + "%";
+    const today = document.getElementById("todayLabel");
+    if(today){
+      today.style.left = progress + "%";
+    }
+  }
+
+  if(diff<0){
+      document.getElementById("status").innerHTML = "🎉 Event Has Started";
+      document.getElementById("timer").innerHTML =
+          "We look forward to celebrating this special day with you.";
+      btn.classList.remove("disabled");
+      return;
+  }
+
+  const d=Math.floor(diff/(1000*60*60*24));
+  const h=Math.floor((diff%(1000*60*60*24))/(1000*60*60));
+  const m=Math.floor((diff%(1000*60*60))/(1000*60));
+  const s=Math.floor((diff%(1000*60))/1000);
+
+  document.getElementById("timer").innerHTML=`
+  <div class="time-box"><div class="value">${d}</div><div class="label">Days</div></div>
+  <div class="time-box"><div class="value">${h}</div><div class="label">Hours</div></div>
+  <div class="time-box"><div class="value">${m}</div><div class="label">Minutes</div></div>
+  <div class="time-box"><div class="value">${s}</div><div class="label">Seconds</div></div>`;
 }
 updateCountdown();
 setInterval(updateCountdown,1000);
@@ -722,44 +1000,9 @@ animation:ringFloat 5s ease-out forwards;
  will-change:transform,opacity;
  backface-visibility:hidden;
  transform:translate3d(0,0,0);
- animation:cannonFall 6s cubic-bezier(.22,.61,.36,1) forwards;
+ transform-origin:center;
  }
 
-@keyframes fall{
-0%{
-transform:translate3d(0,-60px,0) rotate(0deg) scale(.8);
-opacity:1;
-}
-50%{
-transform:translate3d(var(--drift),55vh,0) rotate(540deg) scale(1.1);
-opacity:1;
-}
-100%{
-transform:translate3d(calc(var(--drift) * 1.5),110vh,0) rotate(1080deg) scale(.9);
-opacity:0;
-}
-}
-
-@keyframes cannonFall{
-0%{
-transform:translate3d(0,0,0) rotate(0deg) scale(.6);
-opacity:0;
-}
-10%{
-opacity:1;
-}
-35%{
-transform:translate3d(calc(var(--drift)*0.35),var(--lift),0) rotate(540deg) scale(1.15);
-}
-65%{
-transform:translate3d(calc(var(--drift)*0.75),35vh,0) rotate(1080deg) scale(1);
-opacity:1;
-}
-100%{
-transform:translate3d(var(--drift),92vh,0) rotate(1620deg) scale(.85);
-opacity:0;
-}
-}
 
 /* Sparkles */
 
@@ -879,7 +1122,11 @@ animateGlow();
 
 .register-btn{
 position:relative;
-display:inline-block;
+display:block;
+margin:24px auto 0;
+flex-shrink:0;
+width: 100%;
+max-width: 420px;
 padding:18px 55px;
 font-size:22px;
 font-weight:bold;
@@ -899,6 +1146,18 @@ letter-spacing:.5px;
 text-transform:uppercase;
 min-height:56px;
 -webkit-tap-highlight-color:transparent;
+text-align:center;
+}
+
+.card{
+  display:flex;
+  flex-direction:column;
+  align-items:stretch;
+  gap:0;
+}
+
+.card > *:last-child{
+  margin-bottom:0 !important;
 }
 
 .register-btn:hover{
@@ -935,12 +1194,109 @@ animation:ripple .8s linear;
 @keyframes ripple{
 
 to{
-
 transform:scale(5);
 opacity:0;
+}
 
 }
 
+.info-section{
+  margin-top:10px;
+  display:grid;
+  gap:18px;
+}
+.info-card{
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.16);
+  border-radius:18px;
+  padding:18px;
+  backdrop-filter:blur(12px);
+}
+.info-card h3{
+  margin-bottom:10px;
+  font-size:18px;
+}
+.info-card p{
+  margin:0 0 14px;
+  font-size:15px;
+  line-height:1.6;
+  color:#dbeafe;
+}
+.info-btn{
+  display:inline-block;
+  padding:12px 22px;
+  border-radius:999px;
+  background:linear-gradient(45deg,#2563eb,#38bdf8);
+  color:#fff;
+  text-decoration:none;
+  font-weight:600;
+  transition:.3s;
+}
+
+.info-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 10px 25px rgba(56,189,248,.35);
+}
+
+.share-card{
+  margin-top:22px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:14px;
+  background:transparent;
+  border:none;
+  box-shadow:none;
+  padding:0;
+  backdrop-filter:none;
+  -webkit-backdrop-filter:none;
+}
+.share-title{
+  color:#cbd5e1;
+  font-size:13px;
+  font-weight:600;
+}
+.compact-share .share-title{
+  display:none;
+}
+.share-buttons{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.share-btn{
+  width:46px;
+  height:46px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:50%;
+  background:rgba(255,255,255,.14);
+  border:1px solid rgba(255,255,255,.22);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  box-shadow:0 6px 16px rgba(0,0,0,.22), inset 0 1px rgba(255,255,255,.12);
+  text-decoration:none;
+  cursor:pointer;
+  transition:all .3s ease;
+  padding:0;
+}
+
+.share-btn:hover{
+  transform:translateY(-5px) scale(1.08);
+  background:rgba(255,255,255,.22);
+  border-color:rgba(255,255,255,.35);
+  box-shadow:0 12px 28px rgba(56,189,248,.35), inset 0 1px rgba(255,255,255,.18);
+}
+
+.share-btn img,
+.share-btn svg{
+  width:22px;
+  height:22px;
+  object-fit:contain;
+  display:block;
 }
 
 </style>
@@ -952,164 +1308,150 @@ const btn=document.querySelector(".register-btn");
 btn.href=formURL;
 btn.setAttribute("href", formURL);
 
+function launchCelebration(){
+  const audio=new Audio('https://assets.mixkit.co/active_storage/sfx/2013/2013-preview.mp3');
+  audio.volume=0.5;
+  audio.play().catch(()=>{});
+
+  const colors=['#FFD54F','#FF6B6B','#4ECDC4','#7C4DFF','#FFFFFF','#38BDF8'];
+
+  for(let side=0;side<2;side++){
+    const x=side===0?40:window.innerWidth-40;
+    const baseAngle=side===0?-65:-115;
+
+    let burst=0;
+    const timer=setInterval(()=>{
+      for(let i=0;i<18;i++){
+        const c=document.createElement('div');
+        c.className='confetti';
+        c.style.left=x+'px';
+        c.style.bottom='0px';
+        c.style.background=colors[Math.floor(Math.random()*colors.length)];
+
+        const angle=(baseAngle+(Math.random()*30-15))*Math.PI/180;
+        const speed=16+Math.random()*12;
+        const dx=Math.cos(angle)*speed*22;
+        const dy=Math.sin(angle)*speed*22;
+
+        c.animate([
+          {transform:'translate3d(0,0,0) rotate(0deg)',opacity:1},
+          {transform:`translate3d(${dx}px,${dy}px,0) rotate(${720+Math.random()*720}deg)`,opacity:1,offset:0.45},
+          {transform:`translate3d(${dx*1.4}px,${dy+700}px,0) rotate(${1440+Math.random()*720}deg)`,opacity:0}
+        ],{
+          duration:2600+Math.random()*700,
+          easing:'cubic-bezier(.18,.75,.25,1)',
+          fill:'forwards'
+        });
+
+        document.body.appendChild(c);
+        setTimeout(()=>c.remove(),3500);
+      }
+      burst++;
+      if(burst>=8) clearInterval(timer);
+    },60);
+  }
+}
+
 /* Ripple */
 
 btn.addEventListener("click",function(e){
-
     e.preventDefault();
+    if (new Date().getTime() > new Date('August 10, 2026 23:59:59').getTime()) {
+      return;
+    }
+    launchCelebration();
 
-const circle=document.createElement("span");
+    const circle=document.createElement("span");
+    circle.className="ripple";
+    const size=Math.max(btn.clientWidth,btn.clientHeight);
+    circle.style.width=size+"px";
+    circle.style.height=size+"px";
+    circle.style.left=e.offsetX-size/2+"px";
+    circle.style.top=e.offsetY-size/2+"px";
+    btn.appendChild(circle);
+    setTimeout(()=>circle.remove(),800);
 
-circle.className="ripple";
+    /* Sparkles */
+    for(let i=0;i<25;i++){
+      let s=document.createElement("span");
+      s.className="spark";
+      s.style.left=e.clientX+"px";
+      s.style.top=e.clientY+"px";
+      s.style.setProperty("--x",(Math.random()*300-150)+"px");
+      s.style.setProperty("--y",(Math.random()*300-150)+"px");
+      document.body.appendChild(s);
+      setTimeout(()=>s.remove(),800);
+    }
 
-const size=Math.max(btn.clientWidth,btn.clientHeight);
+    btn.textContent='Opening Portal...';
 
-circle.style.width=size+"px";
-circle.style.height=size+"px";
-
-circle.style.left=e.offsetX-size/2+"px";
-circle.style.top=e.offsetY-size/2+"px";
-
-btn.appendChild(circle);
-
-setTimeout(()=>circle.remove(),800);
-
-// Confetti Cannon Sound
-function playConfettiCannon(){
-  const AudioCtx = window.AudioContext || window.webkitAudioContext;
-  const ctx = new AudioCtx();
-
-  const buffer = ctx.createBuffer(1, ctx.sampleRate * 0.35, ctx.sampleRate);
-  const data = buffer.getChannelData(0);
-  for(let i=0;i<data.length;i++){
-    data[i]=(Math.random()*2-1)*(1-i/data.length);
-  }
-
-  const noise = ctx.createBufferSource();
-  noise.buffer = buffer;
-
-  const filter = ctx.createBiquadFilter();
-  filter.type='lowpass';
-  filter.frequency.value=1200;
-
-  const gain = ctx.createGain();
-  gain.gain.setValueAtTime(0.9,ctx.currentTime);
-  gain.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.35);
-
-  noise.connect(filter);
-  filter.connect(gain);
-  gain.connect(ctx.destination);
-
-  noise.start();
-  noise.stop(ctx.currentTime+0.35);
-}
-
-playConfettiCannon();
-setTimeout(playConfettiCannon,120);
-
-/* Confetti */
-const colors=[
-"#FFD700",
-"#00E5FF",
-"#FF4081",
-"#00FF7F",
-"#FFFFFF"
-];
-
-function fireCannon(side){
-  const origin=side==='left'?5:95;
-  for(let i=0;i<220;i++){
-    const c=document.createElement('div');
-    c.className='confetti';
-    c.style.left=origin+'vw';
-    c.style.top='78vh';
-    c.style.background=colors[Math.floor(Math.random()*colors.length)];
-    c.style.borderRadius=Math.random()>0.5?'50%':'2px';
-    c.style.transform=`rotate(${Math.random()*360}deg)`;
-    c.style.width=(8+Math.random()*10)+'px';
-    c.style.height=c.style.width;
-
-    const angle=(side==='left'?25:155)+(Math.random()*40-20);
-    const power=650+Math.random()*650;
-    const dx=Math.cos(angle*Math.PI/180)*power;
-    const dy=-(Math.sin(angle*Math.PI/180)*(450+Math.random()*350));
-
-    c.style.setProperty('--drift',dx+'px');
-    c.style.setProperty('--lift',dy+'px');
-    c.style.animation=`cannonFall ${5+Math.random()*2}s cubic-bezier(.22,.61,.36,1) forwards`;
-
-    document.body.appendChild(c);
-    setTimeout(()=>c.remove(),5500);
-  }
-}
-
-fireCannon('left');
-fireCannon('right');
-
- let burst=0;
- const celebration=setInterval(()=>{
-  if(burst>8){clearInterval(celebration);return;}
-  burst++;
-  for(let i=0;i<60;i++){
-    const c=document.createElement('div');
-    c.className='confetti';
-    c.style.left=(Math.random()<0.5?5:95)+'vw';
-    c.style.top='78vh';
-    c.style.width=(8+Math.random()*8)+'px';
-    c.style.height=c.style.width;
-    c.style.background=colors[Math.floor(Math.random()*colors.length)];
-    c.style.borderRadius=Math.random()>0.5?'50%':'2px';
-    c.style.transform=`rotate(${Math.random()*360}deg)`;
-    c.style.setProperty('--drift',(Math.random()*300-150)+'px');
-    c.style.setProperty('--lift',(-300-Math.random()*250)+'px');
-    c.style.animation=`cannonFall ${4+Math.random()*2}s cubic-bezier(.22,.61,.36,1) forwards`;
-    document.body.appendChild(c);
-    setTimeout(()=>c.remove(),5000);
-  }
- },350);
-
-/* Sparkles */
-
-for(let i=0;i<25;i++){
-
-let s=document.createElement("span");
-
-s.className="spark";
-
-s.style.left=e.clientX+"px";
-s.style.top=e.clientY+"px";
-
-s.style.setProperty("--x",
-(Math.random()*300-150)+"px");
-
-s.style.setProperty("--y",
-(Math.random()*300-150)+"px");
-
-document.body.appendChild(s);
-
-setTimeout(()=>s.remove(),800);
-
-}
-
-btn.textContent='Opening Portal...';
-
-setTimeout(function(){
-    window.open(formURL, "_self");
-},1200);
-
+    setTimeout(function(){
+        window.open(formURL, "_self");
+    },2000);
 });
 
+</script>
+<script>
+const calendarBtn=document.getElementById('calendarBtn');
+if(calendarBtn){
+  calendarBtn.addEventListener('click',e=>{
+    e.preventDefault();
+    const title='Graduation Ceremony 2026';
+    const details='Graduation Ceremony 2026';
+    const location='RVS Senthil Andavar Wedding Hall, Sulur, Kannampalayam, Tamil Nadu 641402';
+    const start='20260820T150000';
+    const end='20260820T200000';
+    const url=`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${start}/${end}&details=${encodeURIComponent(details)}&location=${encodeURIComponent(location)}`;
+    window.open(url,'_blank');
+  });
+}
 </script>
 </script>
 <script>
-window.addEventListener('load', () => {
-  document.body.style.margin = '0';
-  document.body.style.padding = '0';
-  document.documentElement.style.margin = '0';
-  document.documentElement.style.padding = '0';
-  document.body.style.overflowX = 'hidden';
-  document.body.style.overflowY = 'hidden';
-  document.documentElement.style.overflowX = 'hidden';
-  window.scrollTo(0, 0);
+const shareUrl = window.location.href;
+const shareText = 'Join the Graduation Ceremony 2026! Register now.';
+
+document.getElementById('shareWhatsApp')?.addEventListener('click',e=>{
+  e.preventDefault();
+  window.open(`https://wa.me/?text=${encodeURIComponent(shareText+' '+shareUrl)}`,'_blank');
+});
+
+document.getElementById('shareFacebook')?.addEventListener('click',e=>{
+  e.preventDefault();
+  window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`,'_blank');
+});
+
+document.getElementById('shareX')?.addEventListener('click',e=>{
+  e.preventDefault();
+  window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`,'_blank');
+});
+
+document.getElementById('shareInstagram')?.addEventListener('click',e=>{
+  e.preventDefault();
+  alert('Instagram does not support direct web sharing. You can copy the link and share it in Instagram Stories or DM.');
+});
+
+document.getElementById('copyLinkBtn')?.addEventListener('click',async()=>{
+  try{
+    await navigator.clipboard.writeText(shareUrl);
+    alert('Event link copied!');
+  }catch(e){
+    alert('Unable to copy the link.');
+  }
 });
 </script>
+<script>
+window.addEventListener('load', () => {
+  document.documentElement.style.overflowX = 'hidden';
+  document.documentElement.style.overflowY = 'auto';
+  document.body.style.overflowX = 'hidden';
+  document.body.style.overflowY = 'auto';
+  document.documentElement.style.height = '100%';
+  document.body.style.minHeight = 'auto';
+});
+</script>
+
+<footer class="site-footer">
+  <p>© 2026 Graduation Ceremony. All Rights Reserved.</p>
+  <p>Designed with ❤️ for Graduates</p>
+</footer>
